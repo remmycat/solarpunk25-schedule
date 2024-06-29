@@ -261,24 +261,7 @@ export function Schedule() {
             <td>
               <SpEvent
                 name={
-                  "Regenerative Duality: Balancing Light & Dark in Tech-Driven Environmental Solutions"
-                }
-                speakers={[
-                  {
-                    name: "Sanjana Paul",
-                    href: "https://www.solarpunkconference.com/speakers#:~:text=Sanjana%20Paul",
-                  },
-                  {
-                    name: "Camille Minns",
-                    href: "https://www.solarpunkconference.com/speakers#:~:text=Camille%20Minns",
-                  },
-                ]}
-              />
-            </td>
-            <td>
-              <SpEvent
-                name={
-                  "Fistfights in Utopia: a Q&A Roundtable on Conflict in Solarpunk Stories"
+                  "Fistfights in Utopia: a Q&A Roundtable on Conflict in Solarpunk Stories. (Track changed, see Note at top)"
                 }
                 speakers={[
                   {
@@ -304,6 +287,23 @@ export function Schedule() {
                   {
                     name: "Christina De La Rocha",
                     href: "https://www.solarpunkconference.com/speakers#:~:text=Christina%20De%20La%20Rocha",
+                  },
+                ]}
+              />
+            </td>
+            <td>
+              <SpEvent
+                name={
+                  "Regenerative Duality: Balancing Light & Dark in Tech-Driven Environmental Solutions. (Track changed, see Note at top)"
+                }
+                speakers={[
+                  {
+                    name: "Sanjana Paul",
+                    href: "https://www.solarpunkconference.com/speakers#:~:text=Sanjana%20Paul",
+                  },
+                  {
+                    name: "Camille Minns",
+                    href: "https://www.solarpunkconference.com/speakers#:~:text=Camille%20Minns",
                   },
                 ]}
               />
