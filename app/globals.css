@@ -40,6 +40,10 @@ tr {
     border-bottom: 1px solid var(--foreground);
 }
 
+tr:has(.happening-now) {
+    border: 14px solid var(--foreground);
+}
+
 th,
 td {
     padding: 0.5em;

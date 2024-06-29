@@ -1,4 +1,4 @@
-import { DateTime, Time } from "./datetime";
+import { DateTime, Timespan, Time } from "./datetime";
 import { SpEvent } from "./event";
 
 const spIsoDate = (hourAndMinute: string) =>
@@ -25,16 +25,20 @@ export function Schedule() {
           </tr>
           <tr>
             <th scope="row">
-              <Time isoDate={spIsoDate("08:30")} /> to{" "}
-              <Time isoDate={spIsoDate("08:45")} />
+              <Timespan
+                startIso={spIsoDate("08:30")}
+                endIso={spIsoDate("08:45")}
+              />
             </th>
             <td>Opening</td>
             <td />
           </tr>
           <tr>
             <th scope="row">
-              <Time isoDate={spIsoDate("08:45")} /> to{" "}
-              <Time isoDate={spIsoDate("09:00")} />
+              <Timespan
+                startIso={spIsoDate("08:45")}
+                endIso={spIsoDate("09:00")}
+              />
             </th>
             <td>
               <SpEvent
@@ -46,8 +50,10 @@ export function Schedule() {
           </tr>
           <tr>
             <th scope="row">
-              <Time isoDate={spIsoDate("09:00")} /> to{" "}
-              <Time isoDate={spIsoDate("10:15")} />
+              <Timespan
+                startIso={spIsoDate("09:00")}
+                endIso={spIsoDate("10:15")}
+              />
             </th>
             <td>
               <SpEvent
@@ -65,15 +71,19 @@ export function Schedule() {
           </tr>
           <tr>
             <th scope="row">
-              <Time isoDate={spIsoDate("10:15")} /> to{" "}
-              <Time isoDate={spIsoDate("10:30")} />
+              <Timespan
+                startIso={spIsoDate("10:15")}
+                endIso={spIsoDate("10:30")}
+              />
             </th>
             <td colSpan={2}>Break</td>
           </tr>
           <tr>
             <th scope="row">
-              <Time isoDate={spIsoDate("10:30")} /> to{" "}
-              <Time isoDate={spIsoDate("11:30")} />
+              <Timespan
+                startIso={spIsoDate("10:30")}
+                endIso={spIsoDate("11:30")}
+              />
             </th>
             <td>
               <SpEvent
@@ -105,15 +115,19 @@ export function Schedule() {
           </tr>
           <tr>
             <th scope="row">
-              <Time isoDate={spIsoDate("11:30")} /> to{" "}
-              <Time isoDate={spIsoDate("11:45")} />
+              <Timespan
+                startIso={spIsoDate("11:30")}
+                endIso={spIsoDate("11:45")}
+              />
             </th>
             <td colSpan={2}>Break</td>
           </tr>
           <tr>
             <th scope="row">
-              <Time isoDate={spIsoDate("11:45")} /> to{" "}
-              <Time isoDate={spIsoDate("12:15")} />
+              <Timespan
+                startIso={spIsoDate("11:45")}
+                endIso={spIsoDate("12:15")}
+              />
             </th>
             <td>
               <SpEvent
@@ -169,8 +183,10 @@ export function Schedule() {
           </tr>
           <tr>
             <th scope="row">
-              <Time isoDate={spIsoDate("12:15")} /> to{" "}
-              <Time isoDate={spIsoDate("12:45")} />
+              <Timespan
+                startIso={spIsoDate("12:15")}
+                endIso={spIsoDate("12:45")}
+              />
             </th>
             <td>
               <SpEvent
@@ -199,15 +215,19 @@ export function Schedule() {
           </tr>
           <tr>
             <th scope="row">
-              <Time isoDate={spIsoDate("12:45")} /> to{" "}
-              <Time isoDate={spIsoDate("13:00")} />
+              <Timespan
+                startIso={spIsoDate("12:45")}
+                endIso={spIsoDate("13:00")}
+              />
             </th>
             <td colSpan={2}>Break</td>
           </tr>
           <tr>
             <th scope="row">
-              <Time isoDate={spIsoDate("13:00")} /> to{" "}
-              <Time isoDate={spIsoDate("13:30")} />
+              <Timespan
+                startIso={spIsoDate("13:00")}
+                endIso={spIsoDate("13:30")}
+              />
             </th>
             <td>
               <SpEvent
@@ -224,15 +244,19 @@ export function Schedule() {
           </tr>
           <tr>
             <th scope="row">
-              <Time isoDate={spIsoDate("13:30")} /> to{" "}
-              <Time isoDate={spIsoDate("14:45")} />
+              <Timespan
+                startIso={spIsoDate("13:30")}
+                endIso={spIsoDate("14:45")}
+              />
             </th>
             <td colSpan={2}>{"Lunch Break & Social"}</td>
           </tr>
           <tr>
             <th scope="row">
-              <Time isoDate={spIsoDate("14:45")} /> to{" "}
-              <Time isoDate={spIsoDate("15:45")} />
+              <Timespan
+                startIso={spIsoDate("14:45")}
+                endIso={spIsoDate("15:45")}
+              />
             </th>
             <td>
               <SpEvent
@@ -287,15 +311,19 @@ export function Schedule() {
           </tr>
           <tr>
             <th scope="row">
-              <Time isoDate={spIsoDate("15:45")} /> to{" "}
-              <Time isoDate={spIsoDate("16:00")} />
+              <Timespan
+                startIso={spIsoDate("15:45")}
+                endIso={spIsoDate("16:00")}
+              />
             </th>
             <td colSpan={2}>{"Break"}</td>
           </tr>
           <tr>
             <th scope="row">
-              <Time isoDate={spIsoDate("16:00")} /> to{" "}
-              <Time isoDate={spIsoDate("17:00")} />
+              <Timespan
+                startIso={spIsoDate("16:00")}
+                endIso={spIsoDate("17:00")}
+              />
             </th>
             <td>
               <SpEvent
@@ -312,15 +340,19 @@ export function Schedule() {
           </tr>
           <tr>
             <th scope="row">
-              <Time isoDate={spIsoDate("17:00")} /> to{" "}
-              <Time isoDate={spIsoDate("17:15")} />
+              <Timespan
+                startIso={spIsoDate("17:00")}
+                endIso={spIsoDate("17:15")}
+              />
             </th>
             <td colSpan={2}>{"Break"}</td>
           </tr>
           <tr>
             <th scope="row">
-              <Time isoDate={spIsoDate("17:15")} /> to{" "}
-              <Time isoDate={spIsoDate("17:45")} />
+              <Timespan
+                startIso={spIsoDate("17:15")}
+                endIso={spIsoDate("17:45")}
+              />
             </th>
             <td>
               <SpEvent
@@ -339,16 +371,20 @@ export function Schedule() {
           </tr>
           <tr>
             <th scope="row">
-              <Time isoDate={spIsoDate("17:45")} /> to{" "}
-              <Time isoDate={spIsoDate("18:00")} />
+              <Timespan
+                startIso={spIsoDate("17:45")}
+                endIso={spIsoDate("18:00")}
+              />
             </th>
             <td>Closing Ceremony</td>
             <td />
           </tr>
           <tr>
             <th scope="row">
-              <Time isoDate={spIsoDate("18:00")} /> to{" "}
-              <Time isoDate={spIsoDate("19:00")} />
+              <Timespan
+                startIso={spIsoDate("18:00")}
+                endIso={spIsoDate("19:00")}
+              />
             </th>
             <td>After Party</td>
             <td />

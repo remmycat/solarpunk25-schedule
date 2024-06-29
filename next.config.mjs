@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "export",
-  basePath: "/solarpunk24-schedule",
+  basePath:
+    process.env.NODE_ENV === "production" ? "/solarpunk24-schedule" : undefined,
   images: {
     unoptimized: true,
   },

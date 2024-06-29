@@ -132,3 +132,61 @@ export function Time({ isoDate }: DateTimeProps) {
     </time>
   );
 }
+
+const isItNow = (startIso: string, endIso: string): boolean => {
+  const startDate = new Date(startIso);
+  const endDate = new Date(endIso);
+  const now = Date.now();
+  const isNow = startDate.getTime() <= now && now < endDate.getTime();
+
+  return isNow;
+};
+
+export type TimespanProps = {
+  startIso: string;
+  endIso: string;
+};
+
+export function Timespan({ startIso, endIso }: TimespanProps) {
+  const { timeFormatter } = React.useContext(DateTimeContext);
+  const [isNow, setIsNow] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsNow(isItNow(startIso, endIso));
+
+    const interval = setInterval(() => {
+      setIsNow(isItNow(startIso, endIso));
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [startIso, endIso]);
+
+  const [startString, endString] = React.useMemo(() => {
+    return [
+      timeFormatter.format(new Date(startIso)),
+      timeFormatter.format(new Date(endIso)),
+    ];
+  }, [startIso, endIso, timeFormatter]);
+
+  let label = `${startString} to ${endString}`;
+
+  if (isNow) {
+    label += " (current)";
+  }
+
+  return (
+    <p
+      className={isNow ? "happening-now" : undefined}
+      suppressHydrationWarning
+      aria-label={label}
+    >
+      <time dateTime={startIso} suppressHydrationWarning>
+        {startString}
+      </time>{" "}
+      to{" "}
+      <time dateTime={endIso} suppressHydrationWarning>
+        {endString}
+      </time>
+    </p>
+  );
+}
