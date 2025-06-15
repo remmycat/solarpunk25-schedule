@@ -5,9 +5,11 @@
     --link: #1363ae;
     background-color: var(--background);
     color: var(--foreground);
+    transition:
+        color 0.2s,
+        background-color 0.2s;
 
-    --label-font-family: Lucida Sans Typewriter, Lucida Console, monaco,
-        Bitstream Vera Sans Mono, monospace;
+    --label-font-family: sans-serif;
 
     --title-font-family: Palatino, Palatino Linotype, Palatino LT STD,
         Book Antiqua, Georgia, serif;
@@ -30,13 +32,33 @@
     }
 }
 
+:root:has(#dark-mode-pls:checked) {
+    --foreground: #b8ab99;
+    --background: #33170d;
+    --secondary: #da521c;
+    --link: #e7c124;
+}
+
 @media screen and (max-width: 900px) {
     :root {
         --title-font: bold 1.2rem/1.4 var(--title-font-family);
     }
 }
 
+.track-table {
+    display: none;
+}
+
+:root:has(#one-column-pls:checked) .track-table {
+    display: initial;
+}
+
+:root:has(#one-column-pls:checked) .big-table {
+    display: none;
+}
+
 a {
+    transition: color 0.2s;
     color: var(--link);
 }
 
@@ -50,7 +72,18 @@ main {
 table {
     border-collapse: collapse;
     margin: 25px 0;
-    min-width: 400px;
+    min-width: calc(600px + 6rem);
+    /* border: 8px solid var(--secondary); */
+}
+
+.sched-section {
+    overflow-x: auto;
+}
+
+table.single-track {
+    border-collapse: collapse;
+    margin: 25px 0;
+    min-width: calc(300px + 6rem);
     /* border: 8px solid var(--secondary); */
 }
 
@@ -63,9 +96,15 @@ th {
     font-family: var(--label-font-family);
 }
 
-th,
-td {
+thead th,
+thead td {
+    padding: 0.5ex 1em;
+}
+
+tbody th,
+tbody td {
     padding: 2ex 1em;
+    vertical-align: baseline;
 }
 
 thead tr:not(:first-child) th,
@@ -85,6 +124,17 @@ tbody:last-child tr:not(:last-child) {
 col + col,
 colgroup + colgroup {
     border-left: 1px dashed var(--secondary);
+}
+
+.multi-track colgroup:last-of-type col:last-child {
+    border-right: 1px dashed var(--secondary);
+}
+
+.time-col {
+    width: 6em;
+}
+.multi-track .track-col {
+    width: 100vw;
 }
 
 tbody:not(.row-group) tr:has(.now),
@@ -128,7 +178,8 @@ tr.break .event-type {
 }
 
 ol {
-    padding-inline-start: 1.5em;
+    font-family: var(--label-font-family);
+    padding-inline-start: 2em;
 }
 
 li + li {

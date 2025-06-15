@@ -28,6 +28,14 @@ export function Settings() {
           <input id="sans-serif-pls" type="checkbox" />
           Use Sans-Serif Fonts
         </label>
+        <label>
+          <input id="dark-mode-pls" type="checkbox" />
+          Use Dark Mode (forced)
+        </label>
+        <label>
+          <input id="one-column-pls" type="checkbox" />
+          Seperate Track Tables
+        </label>
       </form>
     </div>
   );

@@ -38,7 +38,9 @@ export default function Home() {
           for this website.
         </p>
         <Settings />
-        <Schedule />
+        <Schedule sectionClassName="big-table" />
+        <Schedule onlyTrack={1} sectionClassName="track-table track-1" />
+        <Schedule onlyTrack={2} sectionClassName="track-table track-2" />
       </main>
     </DateTimeContextProvider>
   );
