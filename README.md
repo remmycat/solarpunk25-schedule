@@ -1,4 +1,4 @@
-# Solarpunk Conference 2024 Schedule (Unofficial HTML Version)
+# Solarpunk Conference 2025 Schedule (Unofficial HTML Version)
 
 ---
 

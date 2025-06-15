@@ -2,7 +2,7 @@
 const nextConfig = {
   output: "export",
   basePath:
-    process.env.NODE_ENV === "production" ? "/solarpunk24-schedule" : undefined,
+    process.env.NODE_ENV === "production" ? "/solarpunk25-schedule" : undefined,
   images: {
     unoptimized: true,
   },
