@@ -4,9 +4,7 @@ import { SpEvent } from "./event";
 import * as React from "react";
 
 const spIsoDate = (hourAndMinute: string) =>
-  `2025-06-15T${hourAndMinute}:00.000-02:00`;
-
-//`2025-06-21T${hourAndMinute}:00.000-06:00`;
+  `2025-06-21T${hourAndMinute}:00.000-06:00`;
 
 enum Ids {
   Time = "thtime",
