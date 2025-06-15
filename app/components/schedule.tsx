@@ -66,10 +66,13 @@ export function Schedule() {
         <colgroup>
           <col />
         </colgroup>
-        <colgroup span={2} />
+        <colgroup>
+          <col />
+          <col />
+        </colgroup>
         <thead>
           <tr>
-            <th className="sep-right" id={Ids.Time} scope="col" rowSpan={2}>
+            <th id={Ids.Time} scope="col" rowSpan={2}>
               Time
             </th>
             <th id={Ids.Event} scope="colgroup" colSpan={2}>
@@ -104,7 +107,7 @@ export function Schedule() {
           </tr>
           <tr>
             <RowHead m={60} isoDate={spIsoDate("10:30")} />
-            <td className="sep-right">
+            <td>
               <EventList
                 evs={[
                   EVENTS.transformation_ecosystems,
@@ -124,7 +127,7 @@ export function Schedule() {
           </tr>
           <tr className="break">
             <RowHead m={15} isoDate={spIsoDate("11:30")} />
-            <td className="sep-right">
+            <td>
               <SpEvent {...EVENTS.break15} track="Track A" />
             </td>
             <td>
@@ -135,7 +138,7 @@ export function Schedule() {
         <tbody className="row-group">
           <tr>
             <RowHead m={30} isoDate={spIsoDate("11:45")} />
-            <td className="sep-right">
+            <td>
               <SpEvent {...EVENTS.repair} />
             </td>
             <td rowSpan={2}>
@@ -144,7 +147,7 @@ export function Schedule() {
           </tr>
           <tr>
             <RowHead m={30} isoDate={spIsoDate("12:15")} />
-            <td className="sep-right">
+            <td>
               <SpEvent {...EVENTS.speculative_tech} />
             </td>
           </tr>

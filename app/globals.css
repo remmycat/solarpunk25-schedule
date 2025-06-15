@@ -17,6 +17,7 @@
 
 :root:has(#sans-serif-pls:checked) {
     --title-font-family: sans-serif;
+    --label-font-family: sans-serif;
     --title-font: bold 1.2rem/1.4 var(--title-font-family);
 }
 
@@ -81,12 +82,9 @@ tbody:last-child tr:not(:last-child) {
     border-bottom: 1px solid var(--secondary);
 }
 
-tr > th:first-child {
-    border-right: 1px dashed var(--secondary);
-}
-
-td.sep-right {
-    border-right: 1px dashed var(--secondary);
+col + col,
+colgroup + colgroup {
+    border-left: 1px dashed var(--secondary);
 }
 
 tbody:not(.row-group) tr:has(.now),
