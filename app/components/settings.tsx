@@ -7,7 +7,7 @@ export function Settings() {
   const { dateTimeFormatter } = React.useContext(DateTimeContext);
 
   return (
-    <>
+    <div id="settings">
       <p>
         All times are shown in timezone:{" "}
         <strong suppressHydrationWarning>
@@ -18,10 +18,17 @@ export function Settings() {
         <p>
           Oh hi, it looks like you disabled javascript on this page! While
           javascript isn&apos;t necessary to display the schedule, it allows the
-          page to show the times in your default timezone and date format. This
-          page contains no trackers or other scripts.
+          page to show the times in your default timezone and date format as
+          well as picking a timezone below. This page contains no trackers.
         </p>
       </noscript>
-    </>
+      <form action="#" aria-labelledby="settings-form-head">
+        <h2 id="settings-form-head"> Site Settings</h2>
+        <label>
+          <input id="sans-serif-pls" type="checkbox" />
+          Use Sans-Serif Fonts
+        </label>
+      </form>
+    </div>
   );
 }

@@ -6,25 +6,35 @@ export default function Home() {
   return (
     <DateTimeContextProvider>
       <main>
-        <h1>Solarpunk Conference 2024 Schedule</h1>
+        <h1>Solarpunk Conference 2025 Schedule</h1>
         <em>
-          Last updated: <DateTime isoDate={new Date().toISOString()} />
+          Last updated:{" "}
+          <DateTime isoDate={new Date().toISOString()} durationMinutes={0} />
+          {" – "}
+          Made with love by <a href="https://github.com/remmycat">
+            Remmy Cat
+          </a>{" "}
+          {" – "} The future is accessible!
         </em>
         <p>
           This is an unofficial recreation of the{" "}
           <a href="https://www.solarpunkconference.com/schedule">
-            image-based Solarpunk Conference 2024 schedule
+            image-based Solarpunk Conference 2025 schedule
           </a>
-          .<br />
-          It is less pretty than the original, but aims to be accessible, and
-          automatically adjusted to your timezone. The schedule might not be
-          up-to-date if there are changes on the day of the conference.
+          . It aims to be accessible and automatically adjusts to your timezone
+          and dark mode settings.{" "}
         </p>
         <p>
-          Note: The tracks of <em>Regenerative Duality</em> and{" "}
-          <em>Fistfights in Utopia</em> changed from the assumed track
-          association shown in the original schedule. The tracks that are
-          currently shown should be correct.
+          <strong>
+            The schedule might not be up-to-date if there are changes on the day
+            of the conference.{" "}
+          </strong>
+          I may be able to fix inaccuracies or issues quickly if you report them
+          on the GitHub{" "}
+          <a href="https://github.com/remmycat/solarpunk25-schedule/issues">
+            Issue tracker
+          </a>{" "}
+          for this website.
         </p>
         <Settings />
         <Schedule />

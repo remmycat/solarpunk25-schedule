@@ -1,33 +1,58 @@
 import * as React from "react";
+import { Duration } from "./datetime";
+import { EventData } from "../schedule_data";
 
-export type SpEventProps = {
-  eventType?: string;
-  speakers: Array<{
-    name: string;
-    href?: string;
-  }>;
-  name: string;
-};
+type SpEventProps = EventData;
 
-export function SpEvent({ speakers, name, eventType }: SpEventProps) {
-  const title = (eventType ? `${eventType}: ` : "") + name;
+const getDurPropsFromMinutes = (minutes: number) =>
+  minutes >= 60
+    ? { hours: Math.floor(minutes / 60), minutes: minutes % 60 }
+    : { minutes };
+
+export function SpEvent({
+  speakers = [],
+  name,
+  eventType = "Talk",
+  durationMinutes,
+  track,
+}: SpEventProps) {
   return (
-    <>
-      <strong>{title}</strong>
-      <br />
-      {speakers.map((speaker, index) => {
-        let linked = speaker.href ? <a href={speaker.href}>{name}</a> : name;
-        return (
-          <React.Fragment key={index}>
-            {speaker.href ? (
-              <a href={speaker.href}>{speaker.name}</a>
+    <div className="event">
+      <span className="event-type">
+        <strong>{eventType} </strong>
+        {typeof durationMinutes === "number" && (
+          <span className="event-duration">
+            <Duration {...getDurPropsFromMinutes(durationMinutes)} />
+          </span>
+        )}
+      </span>
+      {name && (
+        <strong
+          className="event-name"
+          dangerouslySetInnerHTML={{ __html: name }}
+        />
+      )}
+      {speakers.length > 0 && (
+        <span className="authors">
+          {speakers.map((speaker, index) => {
+            let linked = speaker.href ? (
+              <a href={speaker.href}>{name}</a>
             ) : (
-              speaker.name
-            )}
-            {index < speakers.length - 1 ? ", " : ""}
-          </React.Fragment>
-        );
-      })}
-    </>
+              name
+            );
+            return (
+              <React.Fragment key={index}>
+                {speaker.href ? (
+                  <a href={speaker.href}>{speaker.name}</a>
+                ) : (
+                  speaker.name
+                )}
+                {index < speakers.length - 1 ? ", " : ""}
+              </React.Fragment>
+            );
+          })}
+        </span>
+      )}
+    </div>
   );
 }

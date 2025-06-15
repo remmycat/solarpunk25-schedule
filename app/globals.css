@@ -1,59 +1,149 @@
 :root {
-    --foreground: #2d2103;
+    --foreground: #512406;
+    --secondary: #dd6413;
     --background: #fff9e9;
     --link: #1363ae;
     background-color: var(--background);
     color: var(--foreground);
+
+    --label-font-family: Lucida Sans Typewriter, Lucida Console, monaco,
+        Bitstream Vera Sans Mono, monospace;
+
+    --title-font-family: Palatino, Palatino Linotype, Palatino LT STD,
+        Book Antiqua, Georgia, serif;
+
+    --title-font: 1.6rem/1.4 var(--title-font-family);
+}
+
+:root:has(#sans-serif-pls:checked) {
+    --title-font-family: sans-serif;
+    --title-font: bold 1.2rem/1.4 var(--title-font-family);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --foreground: #b8ab99;
+        --background: #33170d;
+        --secondary: #da521c;
+        --link: #e7c124;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    :root {
+        --title-font: bold 1.2rem/1.4 var(--title-font-family);
+    }
 }
 
 a {
     color: var(--link);
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --foreground: #aaa084;
-        --background: #2f1e02;
-        --link: #10c8dc;
-    }
-}
-
 main {
     max-width: min(1000px, 100vw);
     margin: 0 auto;
+
+    font: 1rem/1.4 var(--title-font-family);
 }
 
 table {
     border-collapse: collapse;
     margin: 25px 0;
     min-width: 400px;
-    border: 8px solid var(--foreground);
+    /* border: 8px solid var(--secondary); */
 }
 
-table > caption {
-    font-size: 1.4rem;
-    font-weight: bold;
+h2 {
+    font: bold 1.3rem/1.5 var(--label-font-family);
     text-align: left;
 }
 
-tr {
-    border-bottom: 1px solid var(--foreground);
-}
-
-tr:has(.happening-now) {
-    border: 14px solid var(--foreground);
+th {
+    font-family: var(--label-font-family);
 }
 
 th,
 td {
-    padding: 0.5em;
+    padding: 2ex 1em;
 }
 
-tr > :nth-child(3) {
-    border-left: 2px dashed var(--foreground);
+thead tr:not(:first-child) th,
+thead th:not(:first-child) {
+    text-align: left;
 }
 
-tr > th:first-child,
-thead > tr > :first-child {
-    border-right: 4px solid var(--foreground);
+thead {
+    border-bottom: 2px solid var(--secondary);
+}
+
+tbody:not(:last-child) tr,
+tbody:last-child tr:not(:last-child) {
+    border-bottom: 1px solid var(--secondary);
+}
+
+tr > th:first-child {
+    border-right: 1px dashed var(--secondary);
+}
+
+td.sep-right {
+    border-right: 1px dashed var(--secondary);
+}
+
+tbody:not(.row-group) tr:has(.now),
+tbody.row-group:has(.now) {
+    border: 8px solid var(--secondary);
+}
+
+p {
+    font-size: 1.2rem;
+}
+
+.event-type {
+    display: block;
+    font: 1.2rem var(--label-font-family);
+}
+
+.event:has(.event-name) .event-type {
+    font-size: 0.9rem;
+}
+
+tr.break .event-type {
+    font-size: 0.9rem;
+}
+
+.event-name {
+    display: block;
+    margin-top: 0.5ex;
+    font: var(--title-font);
+
+    hyphens: auto;
+    overflow-wrap: break-word;
+}
+
+.event-duration {
+    font-size: 0.9rem;
+    font-weight: normal;
+}
+
+.authors {
+    display: block;
+}
+
+ol {
+    padding-inline-start: 1.5em;
+}
+
+li + li {
+    margin-top: 4ex;
+}
+
+form {
+    font-family: var(--label-font-family);
+}
+
+label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5em;
 }

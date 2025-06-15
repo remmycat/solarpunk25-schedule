@@ -2,9 +2,15 @@
 
 import * as React from "react";
 
+export type DurationArgument = {
+  hours?: number;
+  minutes?: number;
+};
+
 export type DateTimeContextValue = {
   dateTimeFormatter: Intl.DateTimeFormat;
   timeFormatter: Intl.DateTimeFormat;
+  durationFormatter: { format: (dur: DurationArgument) => string };
   setTimeZone: (tz: string) => void;
   setLocale: (locale: string) => void;
 };
@@ -26,6 +32,25 @@ const spStandardDtFormatter = new Intl.DateTimeFormat("en-US", {
   ...commonDateTimeDisplayOptions,
 });
 
+const fallbackDurationFormatter: DateTimeContextValue["durationFormatter"] = {
+  format({ minutes, hours }) {
+    return [
+      hours != null && `${hours} hrs`,
+      minutes != null && `${minutes} min`,
+    ]
+      .filter(Boolean)
+      .join(", ");
+  },
+};
+
+const spStandardDurationFormatter =
+  "DurationFormat" in Intl
+    ? //@ts-ignore
+      new Intl.DurationFormat("en-US", {
+        style: "short",
+      })
+    : fallbackDurationFormatter;
+
 const spStandardTimeFormatter = new Intl.DateTimeFormat("en-US", {
   timeZone: "MST7MDT",
   ...commonTimeDisplayOptions,
@@ -34,6 +59,7 @@ const spStandardTimeFormatter = new Intl.DateTimeFormat("en-US", {
 export const DateTimeContext = React.createContext<DateTimeContextValue>({
   dateTimeFormatter: spStandardDtFormatter,
   timeFormatter: spStandardTimeFormatter,
+  durationFormatter: spStandardDurationFormatter,
   setTimeZone: () => {},
   setLocale: () => {},
 });
@@ -51,6 +77,8 @@ export function DateTimeContextProvider({
   const [defaultTimeFormatter, setDefaultTimeFormatter] = React.useState(
     spStandardTimeFormatter,
   );
+  const [defaultDurationFormatter, setDefaultDurationFormatter] =
+    React.useState(spStandardDurationFormatter);
 
   // first client render, before paint: set client locale/timezone
   React.useLayoutEffect(() => {
@@ -60,6 +88,14 @@ export function DateTimeContextProvider({
     setDefaultTimeFormatter(
       new Intl.DateTimeFormat(undefined, commonTimeDisplayOptions),
     );
+    if ("DurationFormat" in Intl) {
+      setDefaultDurationFormatter(
+        // @ts-ignore
+        new Intl.DurationFormat(undefined, {
+          style: "short",
+        }),
+      );
+    }
   }, [setDefaultDateTimeFormatter]);
 
   const [locale, setLocale] = React.useState<string | undefined>(undefined);
@@ -87,9 +123,32 @@ export function DateTimeContextProvider({
     [locale, timeZone, defaultTimeFormatter],
   );
 
+  const durationFormatter = React.useMemo(
+    () =>
+      locale || timeZone
+        ? // @ts-ignore
+          new Intl.DurationFormat(local, {
+            style: "short",
+          })
+        : defaultDurationFormatter,
+    [locale, timeZone, defaultDurationFormatter],
+  );
+
   const value = React.useMemo<DateTimeContextValue>(
-    () => ({ dateTimeFormatter, timeFormatter, setLocale, setTimeZone }),
-    [dateTimeFormatter, timeFormatter, setLocale, setTimeZone],
+    () => ({
+      dateTimeFormatter,
+      timeFormatter,
+      setLocale,
+      setTimeZone,
+      durationFormatter,
+    }),
+    [
+      dateTimeFormatter,
+      durationFormatter,
+      timeFormatter,
+      setLocale,
+      setTimeZone,
+    ],
   );
 
   return (
@@ -99,12 +158,40 @@ export function DateTimeContextProvider({
   );
 }
 
-export type DateTimeProps = {
-  isoDate: string;
+const isItNow = (startIso: string, durationMinutes: number): boolean => {
+  const startDate = new Date(startIso);
+  const endDate = new Date(startDate.getTime() + durationMinutes * 60 * 1000);
+  const now = Date.now();
+  const isNow = startDate.getTime() <= now && now < endDate.getTime();
+
+  return isNow;
 };
 
-export function DateTime({ isoDate }: DateTimeProps) {
+function useIsNow(isoDate: string, durationMinutes: number): boolean {
+  const [isNow, setIsNow] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsNow(isItNow(isoDate, durationMinutes));
+
+    const interval = setInterval(() => {
+      setIsNow(isItNow(isoDate, durationMinutes));
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isoDate, durationMinutes]);
+
+  return isNow;
+}
+
+export type DateTimeProps = {
+  isoDate: string;
+  durationMinutes: number;
+};
+
+export function DateTime({ isoDate, durationMinutes }: DateTimeProps) {
   const { dateTimeFormatter } = React.useContext(DateTimeContext);
+
+  const isNow = useIsNow(isoDate, durationMinutes);
 
   const localDateString = React.useMemo(() => {
     const date = new Date(isoDate);
@@ -112,14 +199,23 @@ export function DateTime({ isoDate }: DateTimeProps) {
   }, [isoDate, dateTimeFormatter]);
 
   return (
-    <time dateTime={isoDate} suppressHydrationWarning>
-      {localDateString}
-    </time>
+    <>
+      <time
+        className={isNow ? "now" : undefined}
+        dateTime={isoDate}
+        suppressHydrationWarning
+      >
+        {localDateString}
+      </time>
+      <span suppressHydrationWarning>{isNow && " (now)"}</span>
+    </>
   );
 }
 
-export function Time({ isoDate }: DateTimeProps) {
+export function Time({ isoDate, durationMinutes }: DateTimeProps) {
   const { timeFormatter } = React.useContext(DateTimeContext);
+
+  const isNow = useIsNow(isoDate, durationMinutes);
 
   const localTimeString = React.useMemo(() => {
     const date = new Date(isoDate);
@@ -127,66 +223,25 @@ export function Time({ isoDate }: DateTimeProps) {
   }, [isoDate, timeFormatter]);
 
   return (
-    <time dateTime={isoDate} suppressHydrationWarning>
-      {localTimeString}
-    </time>
+    <>
+      <time
+        dateTime={isoDate}
+        className={isNow ? "now" : undefined}
+        suppressHydrationWarning
+      >
+        {localTimeString}
+      </time>
+      <span suppressHydrationWarning>{isNow && " (now)"}</span>
+    </>
   );
 }
 
-const isItNow = (startIso: string, endIso: string): boolean => {
-  const startDate = new Date(startIso);
-  const endDate = new Date(endIso);
-  const now = Date.now();
-  const isNow = startDate.getTime() <= now && now < endDate.getTime();
+export function Duration(durationArgs: DurationArgument) {
+  const { durationFormatter } = React.useContext(DateTimeContext);
 
-  return isNow;
-};
+  const localDurString = React.useMemo(() => {
+    return durationFormatter.format(durationArgs);
+  }, [durationFormatter, durationArgs]);
 
-export type TimespanProps = {
-  startIso: string;
-  endIso: string;
-};
-
-export function Timespan({ startIso, endIso }: TimespanProps) {
-  const { timeFormatter } = React.useContext(DateTimeContext);
-  const [isNow, setIsNow] = React.useState(false);
-
-  React.useEffect(() => {
-    setIsNow(isItNow(startIso, endIso));
-
-    const interval = setInterval(() => {
-      setIsNow(isItNow(startIso, endIso));
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [startIso, endIso]);
-
-  const [startString, endString] = React.useMemo(() => {
-    return [
-      timeFormatter.format(new Date(startIso)),
-      timeFormatter.format(new Date(endIso)),
-    ];
-  }, [startIso, endIso, timeFormatter]);
-
-  let label = `${startString} to ${endString}`;
-
-  if (isNow) {
-    label += " (current)";
-  }
-
-  return (
-    <p
-      className={isNow ? "happening-now" : undefined}
-      suppressHydrationWarning
-      aria-label={label}
-    >
-      <time dateTime={startIso} suppressHydrationWarning>
-        {startString}
-      </time>{" "}
-      to{" "}
-      <time dateTime={endIso} suppressHydrationWarning>
-        {endString}
-      </time>
-    </p>
-  );
+  return <span suppressHydrationWarning>{localDurString}</span>;
 }

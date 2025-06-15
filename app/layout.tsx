@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Solarpunk 24 Schedule",
-  description: "Unofficial Schedule to the Solarpunk Conference 2024",
+  title: "Solarpunk 25 Schedule",
+  description: "Unofficial Schedule to the Solarpunk Conference 2025",
   authors: [{ name: "Remmy Cat", url: "https://github.com/remmycat" }],
 };
 
