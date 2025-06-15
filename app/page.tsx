@@ -7,15 +7,16 @@ export default function Home() {
     <DateTimeContextProvider>
       <main>
         <h1>Solarpunk Conference 2025 Schedule</h1>
-        <em>
-          Last updated:{" "}
-          <DateTime isoDate={new Date().toISOString()} durationMinutes={0} />
-          {" – "}
-          Made with love by <a href="https://github.com/remmycat">
-            Remmy Cat
-          </a>{" "}
-          {" – "} The future is accessible!
-        </em>
+        <p>
+          <em>
+            Last updated:{" "}
+            <DateTime isoDate={new Date().toISOString()} durationMinutes={0} />
+            {" – "}
+            Made with love by{" "}
+            <a href="https://github.com/remmycat">Remmy Cat</a> {" – "} The
+            future is accessible!
+          </em>
+        </p>
         <p>
           This is an unofficial recreation of the{" "}
           <a href="https://www.solarpunkconference.com/schedule">
