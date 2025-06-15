@@ -34,10 +34,8 @@ const spStandardDtFormatter = new Intl.DateTimeFormat("en-US", {
 
 const fallbackDurationFormatter: DateTimeContextValue["durationFormatter"] = {
   format({ minutes, hours }) {
-    return [
-      hours != null && `${hours} hrs`,
-      minutes != null && `${minutes} min`,
-    ]
+    // Filtering out 0 is intended
+    return [hours && `${hours} hr`, minutes && `${minutes} min`]
       .filter(Boolean)
       .join(", ");
   },
