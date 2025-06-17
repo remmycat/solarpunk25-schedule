@@ -11,7 +11,7 @@ export type DateTimeContextValue = {
   dateTimeFormatter: Intl.DateTimeFormat;
   timeFormatter: Intl.DateTimeFormat;
   durationFormatter: { format: (dur: DurationArgument) => string };
-  setTimeZone: (tz: string) => void;
+  setTimeZone: (tz: string | undefined) => void;
   setLocale: (locale: string) => void;
 };
 
@@ -28,7 +28,7 @@ const commonTimeDisplayOptions: Intl.DateTimeFormatOptions = {
 };
 
 const spStandardDtFormatter = new Intl.DateTimeFormat("en-US", {
-  timeZone: "MST7MDT",
+  timeZone: "America/Denver",
   ...commonDateTimeDisplayOptions,
 });
 
@@ -50,7 +50,7 @@ const spStandardDurationFormatter =
     : fallbackDurationFormatter;
 
 const spStandardTimeFormatter = new Intl.DateTimeFormat("en-US", {
-  timeZone: "MST7MDT",
+  timeZone: "America/Denver",
   ...commonTimeDisplayOptions,
 });
 
@@ -123,13 +123,13 @@ export function DateTimeContextProvider({
 
   const durationFormatter = React.useMemo(
     () =>
-      locale || timeZone
+      locale
         ? // @ts-ignore
-          new Intl.DurationFormat(local, {
+          new Intl.DurationFormat(locale, {
             style: "short",
           })
         : defaultDurationFormatter,
-    [locale, timeZone, defaultDurationFormatter],
+    [locale, defaultDurationFormatter],
   );
 
   const value = React.useMemo<DateTimeContextValue>(
@@ -197,16 +197,14 @@ export function DateTime({ isoDate, durationMinutes }: DateTimeProps) {
   }, [isoDate, dateTimeFormatter]);
 
   return (
-    <>
-      <time
-        className={isNow ? "now" : undefined}
-        dateTime={isoDate}
-        suppressHydrationWarning
-      >
-        {localDateString}
-      </time>
-      <span suppressHydrationWarning>{isNow && " (now)"}</span>
-    </>
+    <time
+      className={isNow ? "now" : undefined}
+      dateTime={isoDate}
+      suppressHydrationWarning
+    >
+      {localDateString}
+      {isNow ? " (now)" : ""}
+    </time>
   );
 }
 

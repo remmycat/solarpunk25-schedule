@@ -4,26 +4,26 @@ import * as React from "react";
 import { DateTimeContext } from "./datetime";
 
 export function Settings() {
-  const { dateTimeFormatter } = React.useContext(DateTimeContext);
+  const { dateTimeFormatter, setTimeZone } = React.useContext(DateTimeContext);
 
   return (
-    <div id="settings">
+    <>
       <p>
-        All times are shown in timezone:{" "}
+        Timezone:{" "}
         <strong suppressHydrationWarning>
           {dateTimeFormatter.resolvedOptions().timeZone}
         </strong>
       </p>
-      <noscript>
-        <p>
-          Oh hi, it looks like you disabled javascript on this page! While
-          javascript isn&apos;t necessary to display the schedule, it allows the
-          page to show the times in your default timezone and date format as
-          well as picking a timezone below. This page contains no trackers.
-        </p>
-      </noscript>
-      <form action="#" aria-labelledby="settings-form-head">
+      <form id="settings" action="#" aria-labelledby="settings-form-head">
         <h2 id="settings-form-head"> Site Settings</h2>
+        <noscript>
+          <p>
+            Oh hi, it looks like you disabled javascript on this page! While
+            javascript isn&apos;t necessary to display the schedule, it allows
+            the page to show the times in your default timezone. This page
+            contains no trackers.
+          </p>
+        </noscript>
         <label>
           <input id="sans-serif-pls" type="checkbox" />
           Use Sans-Serif Fonts
@@ -36,7 +36,16 @@ export function Settings() {
           <input id="one-column-pls" type="checkbox" />
           Seperate Track Tables
         </label>
+        <label>
+          <input
+            onChange={(e) => {
+              setTimeZone(e.target.checked ? "America/Denver" : undefined);
+            }}
+            type="checkbox"
+          />
+          Use Event Timezone (MDT)
+        </label>
       </form>
-    </div>
+    </>
   );
 }

@@ -4,7 +4,7 @@ import { SpEvent } from "./event";
 import * as React from "react";
 
 const spIsoDate = (hourAndMinute: string) =>
-  `2025-06-21T${hourAndMinute}:00.000-06:00`;
+  `2025-06-17T${hourAndMinute}:00.000-03:00`;
 
 function EventList({ evs }: { evs: EventData[] }): React.ReactNode {
   return (
@@ -28,7 +28,7 @@ function RowHead({
   m: number;
 }) {
   return (
-    <th headers={"thtime"} scope="row">
+    <th scope="row">
       {capstone ? (
         <DateTime isoDate={isoDate} durationMinutes={m} />
       ) : (
@@ -283,7 +283,7 @@ export function Schedule({ sectionClassName, onlyTrack }: ScheduleProps) {
           )}
           {hasTrack1 && (
             <tr>
-              <RowHead m={15} isoDate={spIsoDate("18:00")} />
+              <RowHead capstone m={15} isoDate={spIsoDate("18:00")} />
               <td colSpan={mainTrackSpan}>
                 <SpEvent {...EVENTS.afterparty} />
               </td>

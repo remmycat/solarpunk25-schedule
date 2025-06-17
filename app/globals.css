@@ -15,6 +15,16 @@
         Book Antiqua, Georgia, serif;
 
     --title-font: 1.6rem/1.4 var(--title-font-family);
+    --time-col-width: 7rem;
+    --now-border-width: 8px;
+}
+
+:root {
+    /*
+        Fix for weird Safari iOS behaviour that increases font size inside
+        overflowing table. idek.
+    */
+    -webkit-text-size-adjust: 100%;
 }
 
 :root:has(#sans-serif-pls:checked) {
@@ -71,9 +81,18 @@ main {
 
 table {
     border-collapse: collapse;
-    margin: 25px 0;
-    min-width: calc(600px + 6rem);
-    /* border: 8px solid var(--secondary); */
+    box-sizing: border-box;
+    margin: 0 0 2ex 0;
+    /* leave space for now-border*/
+    border-color: transparent;
+    border-style: solid;
+    border-left-width: var(--now-border-width);
+    border-right-width: var(--now-border-width);
+}
+
+table.multi-track {
+    /* -1px to prevent rounding issues */
+    min-width: calc(600px + var(--time-col-width) - 1px);
 }
 
 .sched-section {
@@ -81,10 +100,8 @@ table {
 }
 
 table.single-track {
-    border-collapse: collapse;
-    margin: 25px 0;
-    min-width: calc(300px + 6rem);
-    /* border: 8px solid var(--secondary); */
+    /* -1px to prevent rounding issues */
+    min-width: calc(300px + var(--time-col-width) - 1px);
 }
 
 h2 {
@@ -103,8 +120,15 @@ thead td {
 
 tbody th,
 tbody td {
-    padding: 2ex 1em;
     vertical-align: baseline;
+}
+
+tbody td {
+    padding: 2ex 1em;
+}
+
+tbody th {
+    padding: 2ex 0.4em;
 }
 
 thead tr:not(:first-child) th,
@@ -126,20 +150,16 @@ colgroup + colgroup {
     border-left: 1px dashed var(--secondary);
 }
 
-.multi-track colgroup:last-of-type col:last-child {
-    border-right: 1px dashed var(--secondary);
-}
-
 .time-col {
-    width: 6em;
+    width: var(--time-col-width);
 }
 .multi-track .track-col {
     width: 100vw;
 }
 
-tbody:not(.row-group) tr:has(.now),
-tbody.row-group:has(.now) {
-    border: 8px solid var(--secondary);
+tbody:not(.row-group) tr:has(time.now),
+tbody.row-group:has(time.now) {
+    border: var(--now-border-width) solid var(--secondary);
 }
 
 p {
@@ -151,12 +171,9 @@ p {
     font: 1.2rem var(--label-font-family);
 }
 
-.event:has(.event-name) .event-type {
-    font-size: 0.9rem;
-}
-
+.event:has(> .event-name) .event-type,
 tr.break .event-type {
-    font-size: 0.9rem;
+    font: 1rem var(--label-font-family);
 }
 
 .event-name {
@@ -168,17 +185,28 @@ tr.break .event-type {
     overflow-wrap: break-word;
 }
 
+time,
 .event-duration {
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: normal;
+}
+
+time.now {
+    font-weight: bold;
+}
+
+.event-duration {
+    padding-inline-start: 0.2em;
 }
 
 .authors {
     display: block;
+    font-family: var(--title-font-family);
 }
 
 ol {
     font-family: var(--label-font-family);
+
     padding-inline-start: 2em;
 }
 
@@ -186,7 +214,8 @@ li + li {
     margin-top: 4ex;
 }
 
-form {
+form,
+.setting {
     font-family: var(--label-font-family);
 }
 
@@ -195,4 +224,5 @@ label {
     flex-direction: row;
     align-items: center;
     gap: 0.5em;
+    padding: 0.4ex 0;
 }
