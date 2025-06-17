@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Duration } from "./datetime";
-import { EventData } from "../schedule_data";
+import { type EventData, type Speaker } from "../schedule_data";
+import Link from "next/link";
 
 type SpEventProps = EventData;
 
@@ -9,12 +10,23 @@ const getDurPropsFromMinutes = (minutes: number) =>
     ? { hours: Math.floor(minutes / 60), minutes: minutes % 60 }
     : { minutes };
 
+function SpeakerName(speaker: Speaker): React.ReactNode {
+  if (speaker.href) {
+    return (
+      <Link target="_blank" href={speaker.href}>
+        {speaker.name}
+      </Link>
+    );
+  } else {
+    return speaker.name;
+  }
+}
+
 export function SpEvent({
   speakers = [],
   name,
   eventType = "Talk",
   durationMinutes,
-  track,
 }: SpEventProps) {
   return (
     <div className="event">
@@ -34,23 +46,12 @@ export function SpEvent({
       )}
       {speakers.length > 0 && (
         <span className="authors">
-          {speakers.map((speaker, index) => {
-            let linked = speaker.href ? (
-              <a href={speaker.href}>{name}</a>
-            ) : (
-              name
-            );
-            return (
-              <React.Fragment key={index}>
-                {speaker.href ? (
-                  <a href={speaker.href}>{speaker.name}</a>
-                ) : (
-                  speaker.name
-                )}
-                {index < speakers.length - 1 ? ", " : ""}
-              </React.Fragment>
-            );
-          })}
+          {speakers.map((speaker, index) => (
+            <React.Fragment key={index}>
+              <SpeakerName {...speaker} />
+              {index < speakers.length - 1 ? ", " : ""}
+            </React.Fragment>
+          ))}
         </span>
       )}
     </div>

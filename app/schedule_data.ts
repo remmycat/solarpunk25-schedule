@@ -4,15 +4,30 @@ export type Speaker = {
 };
 
 const SPEAKERS = {
-  crosby: { name: "Phillip M Crosby" },
+  crosby: {
+    name: "Phillip M. Crosby",
+    href: "https://mastodon.world/@SolarpunkConference/114501485559050259/embed",
+  },
   pai: { name: "Sanjana Pai" },
-  mitra: { name: "Arpan Mitra" },
-  verheul: { name: "Pascal Verheul" },
+  mitra: {
+    name: "Arpan Mitra",
+    href: "https://mastodon.world/@SolarpunkConference/114557550822602835/embed",
+  },
+  verheul: {
+    name: "Pascal Verheul",
+    href: "https://mastodon.world/@SolarpunkConference/114549006634964294/embed",
+  },
   chan: { name: "Jonathan Chan" },
-  lind: { name: "Anja H Lind" },
+  lind: {
+    name: "Anja H. Lind",
+    href: "https://mastodon.world/@SolarpunkConference/114594058526163443/embed",
+  },
   frost: { name: "Victor Frost" },
   jerreat: { name: "Jerri Jerreat" },
-  jam: { name: "Jam" },
+  jam: {
+    name: "Jam",
+    href: "https://mastodon.world/@SolarpunkConference/114588599842911147/embed",
+  },
   amaduzzi: { name: "Lee Amaduzzi" },
   wittman: { name: "Dustin Wittman" },
   serbanescu: {
