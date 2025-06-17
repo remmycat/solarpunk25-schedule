@@ -226,8 +226,8 @@ export function Time({ isoDate, durationMinutes }: DateTimeProps) {
         suppressHydrationWarning
       >
         {localTimeString}
+        {isNow ? " (now)" : ""}
       </time>
-      <span suppressHydrationWarning>{isNow && " (now)"}</span>
     </>
   );
 }
@@ -240,4 +240,16 @@ export function Duration(durationArgs: DurationArgument) {
   }, [durationFormatter, durationArgs]);
 
   return <span suppressHydrationWarning>{localDurString}</span>;
+}
+
+export function SelectedTimezone() {
+  const { dateTimeFormatter } = React.useContext(DateTimeContext);
+  return (
+    <p className="current-timezone">
+      Timezone:{" "}
+      <strong suppressHydrationWarning>
+        {dateTimeFormatter.resolvedOptions().timeZone}
+      </strong>
+    </p>
+  );
 }

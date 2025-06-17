@@ -1,5 +1,9 @@
 import { Settings } from "./components/settings";
-import { DateTime, DateTimeContextProvider } from "./components/datetime";
+import {
+  DateTime,
+  DateTimeContextProvider,
+  SelectedTimezone,
+} from "./components/datetime";
 import { Schedule } from "./components/schedule";
 
 export default function Home() {
@@ -7,7 +11,7 @@ export default function Home() {
     <DateTimeContextProvider>
       <main>
         <h1>Solarpunk Conference 2025 Schedule</h1>
-        <p>
+        <p className="mini-meta">
           <em>
             Last updated:{" "}
             <DateTime isoDate={new Date().toISOString()} durationMinutes={0} />
@@ -17,6 +21,7 @@ export default function Home() {
             future is accessible!
           </em>
         </p>
+        <SelectedTimezone />
         <Settings />
         <section aria-labelledby="about-title">
           <h2 id="about-title">About</h2>

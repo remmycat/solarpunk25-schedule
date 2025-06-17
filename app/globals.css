@@ -10,11 +10,16 @@
         background-color 0.2s;
 
     --label-font-family: sans-serif;
-
-    --title-font-family: Palatino, Palatino Linotype, Palatino LT STD,
+    --main-font-family: Palatino, Palatino Linotype, Palatino LT STD,
         Book Antiqua, Georgia, serif;
 
-    --title-font: 1.6rem/1.4 var(--title-font-family);
+    --heading-font: 1.5rem/1 var(--label-font-family);
+    --title-font: 1.6rem/1.4 var(--main-font-family);
+    --body-font: 1.2rem/1.3 var(--main-font-family);
+    --detail-font: 1rem/1.4 var(--main-font-family);
+    --logistics-font: 1rem/1.2 var(--label-font-family);
+    --event-type-font: 1.2rem/1.2 var(--label-font-family);
+
     --time-col-width: 7rem;
     --now-border-width: 8px;
 }
@@ -28,9 +33,13 @@
 }
 
 :root:has(#sans-serif-pls:checked) {
-    --title-font-family: sans-serif;
+    --main-font-family: sans-serif;
     --label-font-family: sans-serif;
-    --title-font: bold 1.2rem/1.4 var(--title-font-family);
+
+    /* Adjust for different perceived height */
+    --title-font: 1.2rem/1.4 var(--main-font-family);
+    --body-font: 1.1rem/1.3 var(--main-font-family);
+    --detail-font: 1rem/1.4 var(--main-font-family);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -51,7 +60,7 @@
 
 @media screen and (max-width: 900px) {
     :root {
-        --title-font: bold 1.2rem/1.4 var(--title-font-family);
+        --title-font: 1.2rem/1.4 var(--main-font-family);
     }
 }
 
@@ -70,13 +79,22 @@
 a {
     transition: color 0.2s;
     color: var(--link);
+    text-underline-offset: 3px;
+}
+
+body {
+    font: var(--body-font);
 }
 
 main {
     max-width: min(1000px, 100vw);
     margin: 0 auto;
+}
 
-    font: 1rem/1.4 var(--title-font-family);
+form + section,
+section + section,
+section + form {
+    margin-top: 2rem;
 }
 
 table {
@@ -88,6 +106,8 @@ table {
     border-style: solid;
     border-left-width: var(--now-border-width);
     border-right-width: var(--now-border-width);
+
+    font: var(--logistics-font);
 }
 
 table.multi-track {
@@ -104,13 +124,13 @@ table.single-track {
     min-width: calc(300px + var(--time-col-width) - 1px);
 }
 
-h2 {
-    font: bold 1.3rem/1.5 var(--label-font-family);
-    text-align: left;
+h1 {
+    margin-block-end: 0.3em;
 }
 
-th {
-    font-family: var(--label-font-family);
+h2 {
+    font: var(--heading-font);
+    text-align: left;
 }
 
 thead th,
@@ -162,18 +182,20 @@ tbody.row-group:has(time.now) {
     border: var(--now-border-width) solid var(--secondary);
 }
 
-p {
-    font-size: 1.2rem;
+.mini-meta,
+.current-timezone {
+    font: var(--detail-font);
+    margin-block: 0.1em;
 }
 
 .event-type {
     display: block;
-    font: 1.2rem var(--label-font-family);
+    font: var(--event-type-font);
 }
 
-.event:has(> .event-name) .event-type,
-tr.break .event-type {
-    font: 1rem var(--label-font-family);
+.event:has(> .event-name),
+tr.break {
+    --event-type-font: var(--logistics-font);
 }
 
 .event-name {
@@ -191,38 +213,33 @@ time,
     font-weight: normal;
 }
 
-time.now {
-    font-weight: bold;
-}
-
 .event-duration {
     padding-inline-start: 0.2em;
 }
 
 .authors {
     display: block;
-    font-family: var(--title-font-family);
+    font: var(--detail-font);
 }
 
 ol {
-    font-family: var(--label-font-family);
-
     padding-inline-start: 2em;
 }
 
 li + li {
-    margin-top: 4ex;
-}
-
-form,
-.setting {
-    font-family: var(--label-font-family);
+    margin-top: 2rem;
 }
 
 label {
+    font: var(--logistics-font);
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: baseline;
     gap: 0.5em;
     padding: 0.4ex 0;
+}
+
+/* i have no idea... */
+.multi-track caption > h2 {
+    margin-block-start: 0.2em;
 }
