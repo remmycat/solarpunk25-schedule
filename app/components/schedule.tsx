@@ -4,7 +4,7 @@ import { SpEvent } from "./event";
 import * as React from "react";
 
 const spIsoDate = (hourAndMinute: string) =>
-  `2025-06-17T${hourAndMinute}:00.000-03:00`;
+  `2025-06-21T${hourAndMinute}:00.000-06:00`;
 
 function EventList({ evs }: { evs: EventData[] }): React.ReactNode {
   return (
