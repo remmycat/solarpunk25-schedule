@@ -53,6 +53,7 @@ export type EventData = {
   span?: number;
   durationMinutes?: number;
   track?: string;
+  isBreak?: boolean;
 };
 
 export const TRACK_1 = "Track A";
@@ -66,6 +67,7 @@ export const EVENTS = {
   break15: {
     durationMinutes: 15,
     eventType: "Break",
+    isBreak: true,
   },
   keynote: {
     name: "Housing As An Urban Commons: Cooperative Housing in the Solarpunk City",
@@ -125,6 +127,7 @@ export const EVENTS = {
   lunch_break: {
     durationMinutes: 75,
     eventType: "Lunch Break & Social",
+    isBreak: true,
   },
   utopian_realism: {
     durationMinutes: 15,

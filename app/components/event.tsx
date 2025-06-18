@@ -27,11 +27,12 @@ export function SpEvent({
   name,
   eventType = "Talk",
   durationMinutes,
+  isBreak,
 }: SpEventProps) {
   return (
     <div className="event">
       <span className="event-type">
-        <strong>{eventType} </strong>
+        {isBreak ? <span>{eventType} </span> : <strong>{eventType} </strong>}
         {typeof durationMinutes === "number" && (
           <span className="event-duration">
             <Duration {...getDurPropsFromMinutes(durationMinutes)} />

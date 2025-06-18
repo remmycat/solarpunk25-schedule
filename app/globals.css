@@ -18,7 +18,6 @@
     --body-font: 1.2rem/1.3 var(--main-font-family);
     --detail-font: 1rem/1.4 var(--main-font-family);
     --logistics-font: 1rem/1.2 var(--label-font-family);
-    --event-type-font: 1.2rem/1.2 var(--label-font-family);
 
     --time-col-width: 7rem;
     --now-border-width: 8px;
@@ -147,8 +146,16 @@ tbody td {
     padding: 2ex 1em;
 }
 
+tbody tr.break td {
+    padding: 1ex 1em;
+}
+
 tbody th {
     padding: 2ex 0.4em;
+}
+
+tbody tr.break th {
+    padding: 1ex 0.4em;
 }
 
 thead tr:not(:first-child) th,
@@ -190,12 +197,7 @@ tbody.row-group:has(time.now) {
 
 .event-type {
     display: block;
-    font: var(--event-type-font);
-}
-
-.event:has(> .event-name),
-tr.break {
-    --event-type-font: var(--logistics-font);
+    font: var(--logistics-font);
 }
 
 .event-name {
