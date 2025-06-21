@@ -36,7 +36,7 @@ export function Settings() {
           }}
           type="checkbox"
         />
-        <span>Use Conference Timezone (MST)</span>
+        <span>Use Conference Timezone (MDT)</span>
       </label>
     </form>
   );
